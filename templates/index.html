@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <title>Mytodo</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Mytodo</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About Us</a>
+          </li>
+          
+        </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  <!-- -------------------------------------------form---------------------------- -->
+  <form action="/" method="POST">
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label"><b>Add Todo</b></label>
+      <input type="text" class="form-control" name= title id="exampleInputEmail1" aria-describedby="emailHelp">
+      
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label"> <b> Describe</b></label>
+      <input type="text" class="form-control" name=desc id="exampleInputPassword1">
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+<!-- -----------------------------------------------table------------------------------- -->
+  <table class="table my-3" >
+   <h4>Add a Todo</h4>
+    <thead>
+      <tr>
+        <th scope="col">sno</th>
+        <th scope="col">Todo</th>
+        <th scope="col">Describe</th>
+        <th scope="col">time</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% if alltodo | length==0 %}
+    <div class="alert alert-dark" role="alert">
+      please add todo now
+    </div>
+      
+    {% else %}
+    {% for todo in alltodo %}
+      <tr>
+        <th scope="row">{{ loop.index }}</th>
+        <td>{{todo.title}}</td>
+        <td>{{ todo.desc }}</td>
+        <td>{{todo.date_created }}</td>
+        <td><a href="/delete/{{todo.sno}}" type="button" class="btn btn-outline-dark mx-1">Delete</button></td>
+        <td><a href="/update/{{todo.sno}}" type="button" class="btn btn-outline-dark mx-1">Update</button></td>
+      </tr>
+        
+      {% endfor %}
+     
+      
+    </tbody>
+  </table>
+      
+    {% endif %}
+      
+</body>
+</html>
